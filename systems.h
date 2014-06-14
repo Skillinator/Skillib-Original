@@ -10,6 +10,11 @@
 const int SYSTEM_DEBUG = 0;	
 const int SYSTEM_WINDOW = 1;
 const int SYSTEM_TIMEKEEPER = 2;
+const int SYSTEM_MOVEMENT = 3;
+const int SYSTEM_COLLISION = 4;
+const int SYSTEM_RENDER = 5;
+const int SYSTEM_INPUT = 6;
+const int SYSTEM_GARBAGECOLLECT = 7;
 
 class WindowSystem : public System{
 public:
@@ -17,7 +22,7 @@ public:
 	WindowSystem(int gwidth, int gheight, char* gtitle);
 	void initializeWindow();
 	void closeWindow();
-	void update(int delta);
+	void update(float delta);
 protected:
 	GLFWwindow* window;
 	int width;
@@ -28,17 +33,47 @@ protected:
 class TimekeeperSystem : public System{
 public:
 	TimekeeperSystem();
-	void update(int delta);
+	void update(float delta);
 	double getCurrentTime();
 	int getDelta();
 	int getFPS();
 protected:
 	int ticks;
 	int fps;
-	int delta;
+	float delta;
 	double lastTime;
 	double lastSecond;
 	double currentTime;
+};
+
+class MovementSystem : public System(){
+public:
+	MovementSystem();
+	void update(float delta);
+};
+
+class CollisionSystem : public System{
+public:
+	CollisionSystem();
+	void update(float delta);
+};
+
+class RenderSystem : public System{
+public:
+	RenderSystem();
+	void update(float delta);
+};
+
+class InputSystem : public System{
+public:
+	InputSystem();
+	void update(float delta);
+};
+
+class GarbageCollectSystem : public System{
+public:
+	GarbageCollectSystem();
+	void update(float delta);
 };
 
 #endif
