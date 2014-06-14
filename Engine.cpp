@@ -94,6 +94,7 @@ void Engine::update(){
 	for(int x = 0; x < systems.size(); x++){
 		systems.at(x)->update(0);
 	}
+
 }
 
 void Engine::start(){
@@ -111,7 +112,6 @@ void Engine::recieveMessage(Message *m){
 	switch(m->messageType){
 	case MESSAGE_DELTA:	DeltaMessage *deltaMSG = static_cast<DeltaMessage*>(m);
 				delta = deltaMSG->delta;
-				std::cout<<"Delta: "<<delta<<"\n";
 				break;
 	}
 }
