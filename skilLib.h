@@ -98,6 +98,8 @@ public:
 	System();
 	virtual void update(int delta) = 0;
 	void setIndex(int ind);
+	void engineMessage(Message *m);
+	void recieveMessage(Message *m);
 	int getID();
 	int id;
 	int index;
@@ -110,11 +112,13 @@ public:
 	void removeEntity(int entIndex);
 	bool addSystem(System *sys);
 	bool removeSystem(int sysID);
+	void recieveMessage(Message *m);
 	void start();
 	void update();
 	void shutDown();
 protected:
 	bool running;
+	float delta;
 	std::vector<Entity*> entities;
 	std::vector<System*> systems;
 };
