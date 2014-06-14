@@ -31,6 +31,8 @@ WindowSystem::WindowSystem(int gwidth, int gheight, char* gtitle){
 }
 
 void WindowSystem::update(float delta){
+    glfwSwapBuffers(window);
+    
     glViewport(0,0,width,height);
     glClearColor(0.0f, 0.0f, 1.0f, 0.5f);
 
@@ -46,7 +48,7 @@ void WindowSystem::update(float delta){
     glLoadIdentity();
     
     glfwPollEvents();
-    glfwSwapBuffers(window);
+
 	if(glfwGetKey(window, GLFW_KEY_ESCAPE) || glfwWindowShouldClose(window)){
     	closeWindow();
 	}
