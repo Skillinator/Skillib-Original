@@ -76,7 +76,7 @@ public:
 class Component{
 public:
 	Component();
-	virtual void update(int delta) = 0;
+	//virtual void update(float delta) = 0;
 	int getID();
 	int id;
 
