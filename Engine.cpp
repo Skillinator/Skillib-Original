@@ -23,6 +23,12 @@ System::System(){
 
 }
 
+void System::engineMessage(Message *m){
+	theEngine->recieveMessage(m);
+}
+
+void System::recieveMessage(Message *m){ /* default shouldn't need to do much I think */ }
+
 void System::setIndex(int ind){
 	index = ind;
 }
@@ -32,7 +38,7 @@ int System::getID(){
 }
 
 Engine::Engine(){
-
+	delta = 0.0;
 }
 
 void Engine::addEntity(Entity *ent){
@@ -81,6 +87,14 @@ void Engine::start(){
 
 void Engine::shutDown(){
 	running = false;
+}
+
+void Engine::recieveMessage(Message *m){
+	switch(m->messageType){
+	case MESSAGE_DELTA:	DeltaMessage *deltaMSG = static_cast<DeltaMessage*>(m);
+				delta = deltaMSG->delta;
+				break;
+	}
 }
 
 void shutDownEverything(){
