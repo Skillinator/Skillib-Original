@@ -9,6 +9,7 @@
 #include "SOIL.h"
 #include "skilLib.h"
 #include "systems.h"
+#include "components.h"
 
 int windowheight = 736;
 int windowwidth = 736;
@@ -29,6 +30,14 @@ int main(){
     theEngine = new Engine();
     theEngine->addSystem(new WindowSystem());
     theEngine->addSystem(new TimekeeperSystem());
+    theEngine->addSystem(new RenderSystem());
+
+    Entity *test = new Entity();
+    test->addComponent(new Position(100, 100));
+    test->addComponent(new Color(1.0, 0.0, 0.0));
+    test->addComponent(new Dimensions(300, 300));
+
+    theEngine->addEntity(test);
 
    	theEngine->start();
 }
