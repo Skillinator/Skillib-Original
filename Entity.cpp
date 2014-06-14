@@ -35,6 +35,15 @@ bool Entity::removeComponent(int compID){
 	return false;
 }
 
+bool Entity::hasComponent(int compID){
+	for(int x = 0; x < components.size(); x++){
+		if(components.at(x)->getID() == compID){
+			return true;
+		}
+	}
+	return false;
+}
+
 Component *Entity::getComponent(int compID){
 	for(int x = 0; x < components.size(); x++){
 		if(components.at(x)->getID() == compID){

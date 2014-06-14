@@ -87,6 +87,7 @@ public:
 	Entity();
 	bool addComponent(Component* comp);
 	bool removeComponent(int compID);
+	bool hasComponent(int compID);
 	Component *getComponent(int compID);
 	void update(int delta);
 protected:
