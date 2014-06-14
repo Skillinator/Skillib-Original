@@ -8,12 +8,14 @@
 #include "skilLib.h"
 #include "systems.h"
 
+const int MESSAGE_UNDEFINED = -1;
 const int MESSAGE_DELTA = 1;
 
 class DeltaMessage : public Message{
-  DeltaMessage();
-  DeltaMessage(float d);
-  float delta;
-}
+public:
+	DeltaMessage();
+	DeltaMessage(float d);
+	float delta;
+};
 
 #endif
