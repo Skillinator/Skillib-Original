@@ -8,6 +8,8 @@
 #include <vector>
 #include "SOIL.h"
 #include "skilLib.h"
+#include "systems.h"
+#include "messages.h"
 
 extern Engine *theEngine;
 
@@ -93,6 +95,7 @@ void Engine::recieveMessage(Message *m){
 	switch(m->messageType){
 	case MESSAGE_DELTA:	DeltaMessage *deltaMSG = static_cast<DeltaMessage*>(m);
 				delta = deltaMSG->delta;
+				std::cout<<"Delta: "<<delta<<"\n";
 				break;
 	}
 }

@@ -9,6 +9,7 @@
 #include "SOIL.h"
 #include "skilLib.h"
 #include "systems.h"
+#include "messages.h"
 
 TimekeeperSystem::TimekeeperSystem(){
 	ticks = 0;
@@ -19,7 +20,7 @@ TimekeeperSystem::TimekeeperSystem(){
 	currentTime = 0;
 }
 
-void TimekeeperSystem::update(int delta){
+void TimekeeperSystem::update(float delta){
 	lastTime = currentTime;
 	currentTime = glfwGetTime();
 	ticks++;
@@ -31,6 +32,8 @@ void TimekeeperSystem::update(int delta){
 	}
 
 	delta = currentTime - lastTime;
+
+	engineMessage(new DeltaMessage(delta));
 }
 
 int TimekeeperSystem::getFPS(){
