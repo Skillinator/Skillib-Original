@@ -102,6 +102,7 @@ public:
 	void engineMessage(Message *m);
 	void recieveMessage(Message *m);
 	Entity *entityAt(int index);
+	int numEntities();
 	int getID();
 	int id;
 	int index;
@@ -119,6 +120,7 @@ public:
 	void update();
 	void shutDown();
 	Entity *getEntity(int index);
+	int numEntities();
 protected:
 	bool running;
 	float delta;

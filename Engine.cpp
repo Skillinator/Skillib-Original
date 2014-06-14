@@ -33,6 +33,10 @@ Entity *System::entityAt(int index){
 	return theEngine->getEntity(index);
 }
 
+int System::numEntities(){
+	return theEngine->numEntities();
+}
+
 void System::recieveMessage(Message *m){ /* default shouldn't need to do much I think */ }
 
 void System::setIndex(int ind){
@@ -49,6 +53,10 @@ Engine::Engine(){
 
 Entity *Engine::getEntity(int index){
 	return entities.at(index);
+}
+
+int Engine::numEntities(){
+	return entities.size();
 }
 
 void Engine::addEntity(Entity *ent){
