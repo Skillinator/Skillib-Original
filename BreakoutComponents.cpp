@@ -54,7 +54,7 @@ Color::Color(){
 Color::Color(float r, float g, float b){
 	red = r;
 	green = g;
-	blue = blue;
+	blue = b;
 	id = COMPONENT_COLOR;
 }
 
