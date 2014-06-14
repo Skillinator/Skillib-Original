@@ -20,7 +20,7 @@ const int COMPONENT_FRAGILITY = 7;
 class Position : public Component{
 public:
 	Position();
-	Position(Chefloat gx, float gy);
+	Position(float gx, float gy);
 	float getX();
 	float getY();
 	void setX(float newx);

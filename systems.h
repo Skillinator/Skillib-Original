@@ -46,7 +46,7 @@ protected:
 	double currentTime;
 };
 
-class MovementSystem : public System(){
+class MovementSystem : public System{
 public:
 	MovementSystem();
 	void update(float delta);
