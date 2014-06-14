@@ -96,7 +96,7 @@ protected:
 class System{
 public:
 	System();
-	virtual void update(int delta) = 0;
+	virtual void update(float delta) = 0;
 	void setIndex(int ind);
 	void engineMessage(Message *m);
 	void recieveMessage(Message *m);
