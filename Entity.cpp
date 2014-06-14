@@ -54,6 +54,6 @@ Component *Entity::getComponent(int compID){
 
 void Entity::update(int delta){
 	for(int x = 0; x < components.size(); x++){
-		components.at(x)->update(delta);
+		//components.at(x)->update(delta);
 	}
 }
