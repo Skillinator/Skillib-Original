@@ -29,6 +29,10 @@ void System::engineMessage(Message *m){
 	theEngine->recieveMessage(m);
 }
 
+Entity *System::entityAt(int index){
+	return theEngine->getEntity(index);
+}
+
 void System::recieveMessage(Message *m){ /* default shouldn't need to do much I think */ }
 
 void System::setIndex(int ind){
@@ -41,6 +45,10 @@ int System::getID(){
 
 Engine::Engine(){
 	delta = 0.0;
+}
+
+Entity *Engine::getEntity(int index){
+	return entities.at(index);
 }
 
 void Engine::addEntity(Entity *ent){
