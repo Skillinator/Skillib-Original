@@ -3,7 +3,7 @@
 #include <sstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <stdio.h>
+#include <stdio.h> 
 #include <string.h>
 #include <vector>
 #include "SOIL.h"
@@ -25,7 +25,7 @@ Position::Position(float gx, float gy){
 }
 
 float Position::getX(){ return x; }
-float Position::getY(){ return x; }
+float Position::getY(){ return y; }
 void Position::setX(float gx){ x = gx; }
 void Position::setY(float gy){ y = gy; }
 
@@ -108,4 +108,8 @@ Fragility::Fragility(){
 Fragility::Fragility(int f){
 	fragility = f;
 	id = COMPONENT_FRAGILITY;
+}
+
+Bounce::Bounce(){
+	id = COMPONENT_BOUNCE;
 }

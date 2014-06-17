@@ -9,6 +9,7 @@
 #include "SOIL.h"
 #include "skilLib.h"
 #include "systems.h"
+#include "components.h"
 #include "messages.h"
 
 extern Engine *theEngine;
@@ -16,13 +17,15 @@ extern Engine *theEngine;
 Component::Component(){
 
 }
+Component::~Component(){
 
+}
 int Component::getID(){
 	return id;
 }
 
 System::System(){
-
+	handler = new MessageHandler();
 }
 
 void System::engineMessage(Message *m){
@@ -45,6 +48,10 @@ void System::setIndex(int ind){
 
 int System::getID(){
 	return id;
+}
+
+void System::message(Message* msg){
+	handler->handle(msg, this);
 }
 
 Engine::Engine(){
@@ -92,9 +99,11 @@ bool Engine::removeSystem(int sysID){
 
 void Engine::update(){
 	for(int x = 0; x < systems.size(); x++){
-		systems.at(x)->update(0);
+		systems.at(x)->update(delta);
 	}
 
+	//Position *pos = dynamic_cast<Position*>(entities.at(90)->getComponent(COMPONENT_POSITION));
+	//std::cout<<pos->getY()<<"\n";
 }
 
 void Engine::start(){
@@ -109,11 +118,23 @@ void Engine::shutDown(){
 }
 
 void Engine::recieveMessage(Message *m){
+	bool found = false;
 	switch(m->messageType){
 	case MESSAGE_DELTA:	DeltaMessage *deltaMSG = static_cast<DeltaMessage*>(m);
 				delta = deltaMSG->delta;
+				found = true;
 				break;
 	}
+
+	if(!found){
+		for(int x = 0; x < systems.size(); x++){
+			systems.at(x)->message(m);
+		}
+	}
+}
+
+void messageSystems(Message *m){
+	theEngine->recieveMessage(m);
 }
 
 void shutDownEverything(){

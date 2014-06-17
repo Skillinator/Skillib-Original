@@ -12,8 +12,11 @@ class Setting;
 class IOManager;
 class SettingsManager;
 class Engine;
+class MessageHandler;
+class Message;
 
 void shutDownEverything();
+void messageSystems(Message *m);
 
 class Setting{
 public:
@@ -76,6 +79,7 @@ public:
 class Component{
 public:
 	Component();
+	virtual ~Component();
 	//virtual void update(float delta) = 0;
 	int getID();
 	int id;
@@ -85,14 +89,18 @@ public:
 class Entity{
 public:
 	Entity();
+	Entity(MessageHandler *gmh);
+	void message(Message* msg);
 	bool addComponent(Component* comp);
 	bool removeComponent(int compID);
 	bool hasComponent(int compID);
 	Component *getComponent(int compID);
 	void update(int delta);
 protected:
+	MessageHandler *mh;
 	std::vector<Component*> components;
 };
+
 
 class System{
 public:
@@ -106,6 +114,15 @@ public:
 	int getID();
 	int id;
 	int index;
+	void message(Message* msg);
+	MessageHandler *handler;
+};
+
+class MessageHandler{
+public:
+	MessageHandler();
+	virtual void handle(Message *m, Entity *ent);
+	virtual void handle(Message *m, System *sys);
 };
 
 class Engine{

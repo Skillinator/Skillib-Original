@@ -16,7 +16,7 @@ const int COMPONENT_DIMENSIONS = 4;
 const int COMPONENT_LIVES = 5;
 const int COMPONENT_CHECKCOLLISIONS = 6;
 const int COMPONENT_FRAGILITY = 7;
-
+const int COMPONENT_BOUNCE = 8;
 class Position : public Component{
 public:
 	Position();
@@ -87,6 +87,7 @@ public:
 	CheckCollisions();
 };
 
+
 class Fragility : public Component{
 public:
 	Fragility();
@@ -97,4 +98,8 @@ protected:
 	int fragility;
 };
 
+class Bounce : public Component{
+public:
+	Bounce();
+};
 #endif

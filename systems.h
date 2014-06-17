@@ -55,6 +55,7 @@ public:
 class CollisionSystem : public System{
 public:
 	CollisionSystem();
+	bool inside(float pointx, float pointy, float boxx, float boxy, int w, int h);
 	void update(float delta);
 };
 
@@ -74,6 +75,7 @@ class GarbageCollectSystem : public System{
 public:
 	GarbageCollectSystem();
 	void update(float delta);
+	std::vector<Entity*> removeList;
 };
 
 #endif
