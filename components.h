@@ -17,6 +17,8 @@ const int COMPONENT_LIVES = 5;
 const int COMPONENT_CHECKCOLLISIONS = 6;
 const int COMPONENT_FRAGILITY = 7;
 const int COMPONENT_BOUNCE = 8;
+const int COMPONENT_BOUNDTO = 10;
+
 class Position : public Component{
 public:
 	Position();
@@ -96,6 +98,18 @@ public:
 	void setFragility();
 protected:
 	int fragility;
+};
+
+class BoundTo : public Component{
+public:
+	BoundTo();
+	BoundTo(bool is, Entity *ent);
+	bool isBound();
+	void setBound(bool set);
+	Entity *getEntity();
+protected:
+	bool bound;
+	Entity *entity;
 };
 
 class Bounce : public Component{

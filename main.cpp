@@ -16,6 +16,8 @@ int windowwidth = 736;
 const char* title = "SkilLib 0.1 Testing";
 double libVersion = 0.1;
 
+
+GLFWwindow* window;
 /*
 void GLFWCALL windowResize(int getwidth, int getheight){
     windowheight=getheight;
@@ -30,8 +32,9 @@ int main(){
     theEngine = new Engine();
     theEngine->addSystem(new WindowSystem());
     theEngine->addSystem(new TimekeeperSystem());
-    theEngine->addSystem(new MovementSystem());
+    theEngine->addSystem(new InputSystem());
     theEngine->addSystem(new CollisionSystem());
+    theEngine->addSystem(new MovementSystem());
     theEngine->addSystem(new RenderSystem());
     theEngine->addSystem(new GarbageCollectSystem());
 
@@ -112,11 +115,11 @@ int main(){
 	    theEngine->addEntity(brick);
 	}
 
-	Entity *paddle = new Entity();
+	Entity *paddle = new Entity(new PaddleHandler());
 	paddle->addComponent(new Position(256-32, 128));
 	paddle->addComponent(&red);
 	paddle->addComponent(new Dimensions(64, 16));
-	//paddle->addComponent(new CheckCollisions());
+	paddle->addComponent(new CheckCollisions());
 	paddle->addComponent(new Velocity(0.0, 0.0));
 	theEngine->addEntity(paddle);
 
@@ -124,10 +127,11 @@ int main(){
 	ball->addComponent(new Position(256-8, 148));
 	ball->addComponent(new Velocity(3.14/4, 100));
 	ball->addComponent(&red);
-	ball->addComponent(new Dimensions(16, 16));
+	ball->addComponent(new Dimensions(8, 8));
 	ball->addComponent(new Lives(3));
 	ball->addComponent(new CheckCollisions());
 	ball->addComponent(new Bounce());
+	ball->addComponent(new BoundTo(true, paddle));
 	theEngine->addEntity(ball);
 
    	theEngine->start();

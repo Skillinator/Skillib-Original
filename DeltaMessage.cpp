@@ -48,6 +48,20 @@ HitMessage::HitMessage(int direction){
 	side = direction;
 }
 
+ControlMessage::ControlMessage(){
+	fromType = SYSTEM_INPUT;
+	messageType = MESSAGE_KEY;
+	key = 0;
+	val = false;
+}
+
+ControlMessage::ControlMessage(int gkey, bool gval){
+	fromType = SYSTEM_INPUT;
+	messageType = MESSAGE_KEY;
+	key = gkey;
+	val = gval;
+}
+
 Message::Message(){
 	fromType = 0;
 	messageType = MESSAGE_UNDEFINED;

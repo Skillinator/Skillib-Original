@@ -15,6 +15,7 @@ class Engine;
 class MessageHandler;
 class Message;
 
+extern GLFWwindow* window;
 void shutDownEverything();
 void messageSystems(Message *m);
 

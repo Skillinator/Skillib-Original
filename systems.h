@@ -24,7 +24,6 @@ public:
 	void closeWindow();
 	void update(float delta);
 protected:
-	GLFWwindow* window;
 	int width;
 	int height;
 	char* title;
@@ -69,6 +68,10 @@ class InputSystem : public System{
 public:
 	InputSystem();
 	void update(float delta);
+protected:
+	bool left;
+	bool right;
+	bool space;
 };
 
 class GarbageCollectSystem : public System{

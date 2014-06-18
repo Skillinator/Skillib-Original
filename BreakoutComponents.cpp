@@ -113,3 +113,27 @@ Fragility::Fragility(int f){
 Bounce::Bounce(){
 	id = COMPONENT_BOUNCE;
 }
+
+BoundTo::BoundTo(){
+	id = COMPONENT_BOUNDTO;
+	bound = false;
+	entity = new Entity();
+}
+
+BoundTo::BoundTo(bool is, Entity *ent){
+	id = COMPONENT_BOUNDTO;
+	bound = is;
+	entity = ent;
+}
+
+bool BoundTo::isBound(){
+	return bound;
+}
+
+void BoundTo::setBound(bool set){
+	bound = set;
+}
+
+Entity *BoundTo::getEntity(){
+	return entity;
+}

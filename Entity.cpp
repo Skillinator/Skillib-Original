@@ -17,8 +17,10 @@ const float PI = 3.14149;
 TileHandler::TileHandler(){}
 
 void TileHandler::handle(Message *m, Entity *ent){
-	GarbageMessage *gm = new GarbageMessage(ent);
-	messageSystems(gm);
+	if(m->messageType == MESSAGE_HIT){
+		GarbageMessage *gm = new GarbageMessage(ent);
+		messageSystems(gm);
+	}
 }
 
 GarbageHandler::GarbageHandler(){}
@@ -33,6 +35,40 @@ void GarbageHandler::handle(Message *m, System *sys){
 }
 
 BallHandler::BallHandler(){}
+
+PaddleHandler::PaddleHandler(){}
+void PaddleHandler::handle(Message *m, Entity *ent){
+	if(m->messageType == MESSAGE_KEY){
+		ControlMessage *ctl = static_cast<ControlMessage*>(m);
+		Velocity *vel = static_cast<Velocity*>(ent->getComponent(COMPONENT_VELOCITY));
+		if(ctl->key == KEY_Z){
+			if(ctl->val){
+				vel->setSpeed(150.0);
+				vel->setDir(3.14159);
+			}else if(vel->getDir() > 0){
+				vel->setSpeed(0.0);
+			}
+		}
+		if(ctl->key == KEY_X){
+			if(ctl->val){
+				vel->setSpeed(150.0);
+				vel->setDir(0.0);
+			}else if(vel->getDir() < 1){
+				vel->setSpeed(0.0);
+			}
+		}
+
+	}else if(m->messageType == MESSAGE_HIT){
+		HitMessage *hit = static_cast<HitMessage*>(m);
+		Velocity *vel = static_cast<Velocity*>(ent->getComponent(COMPONENT_VELOCITY));
+		if(hit->side == DIRECTION_LEFT && vel->getDir() > 1){
+			vel->setSpeed(0.0);
+		}
+		if(hit->side == DIRECTION_RIGHT && vel->getDir() < 1){
+			vel->setSpeed(0.0);
+		}
+	}
+}
 
 void BallHandler::handle(Message *m, Entity *ent){
 	if(m->messageType == MESSAGE_HIT){
@@ -74,6 +110,19 @@ void BallHandler::handle(Message *m, Entity *ent){
 
 		vel->setDir(dir);
 
+	}
+
+	if(m->messageType == MESSAGE_KEY){
+		ControlMessage *ctl = static_cast<ControlMessage*>(m);
+		Velocity *vel = static_cast<Velocity*>(ent->getComponent(COMPONENT_VELOCITY));
+		BoundTo *bound = static_cast<BoundTo*>(ent->getComponent(COMPONENT_BOUNDTO));
+		if(ctl->key == KEY_SPACE && ctl->val){
+			if(bound->isBound()){
+				bound->setBound(false);
+				vel->setDir(3.14159/4);
+				vel->setSpeed(175);
+			}
+		}
 	}
 }
 

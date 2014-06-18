@@ -67,6 +67,19 @@ void MovementSystem::update(float delta){
 			pos->setX(x+changex);
 			pos->setY(y+changey);
 		}
+		if(tmp->hasComponent(COMPONENT_POSITION) && tmp->hasComponent(COMPONENT_DIMENSIONS) && tmp->hasComponent(COMPONENT_BOUNDTO)){
+			BoundTo *bound = static_cast<BoundTo*>(tmp->getComponent(COMPONENT_BOUNDTO));
+			if(bound->isBound()){
+				Position *pos = static_cast<Position*>(tmp->getComponent(COMPONENT_POSITION));
+				Dimensions *dim = static_cast<Dimensions*>(tmp->getComponent(COMPONENT_DIMENSIONS));
+
+				Position *pos2 = static_cast<Position*>(bound->getEntity()->getComponent(COMPONENT_POSITION));
+				Dimensions *dim2 = static_cast<Dimensions*>(bound->getEntity()->getComponent(COMPONENT_DIMENSIONS));
+
+				pos->setX(pos2->getX() + (dim2->getWidth()/2) - (dim->getWidth()/2));
+				pos->setY(pos2->getY() + dim2->getHeight() + 2);
+			}
+		}
 	}
 }
 
@@ -137,6 +150,7 @@ void CollisionSystem::update(float delta){
 GarbageCollectSystem::GarbageCollectSystem(){
 	handler = new GarbageHandler();
 	id = SYSTEM_GARBAGECOLLECT;
+	removeList.clear();
 }
 
 void GarbageCollectSystem::update(float delta){
@@ -144,8 +158,43 @@ void GarbageCollectSystem::update(float delta){
 		for(int y = 0; y < theEngine->numEntities(); y++){
 			if(theEngine->getEntity(y) == removeList.at(x)){
 				theEngine->removeEntity(y);
+				std::cout<<"Removed";
 			}
 		}
 	}
 	removeList.clear();
+}
+
+InputSystem::InputSystem(){
+	id = SYSTEM_INPUT;
+}
+
+void InputSystem::update(float delta){
+	bool tmpleft = glfwGetKey(window, GLFW_KEY_Z);
+	bool tmpright = glfwGetKey(window, GLFW_KEY_X);
+	bool tmpspace = glfwGetKey(window, GLFW_KEY_SPACE);
+	for(int x = 0; x < numEntities(); x++){
+		if(left && !tmpleft){
+			entityAt(x)->message(new ControlMessage(KEY_Z, false));
+		}
+		if(!left && tmpleft){
+			entityAt(x)->message(new ControlMessage(KEY_Z, true));
+		}
+		if(right && !tmpright){
+			entityAt(x)->message(new ControlMessage(KEY_X, false));
+		}
+		if(!right && tmpright){
+			entityAt(x)->message(new ControlMessage(KEY_X, true));
+		}
+		if(space && !tmpspace){
+			entityAt(x)->message(new ControlMessage(KEY_SPACE, false));
+		}
+		if(!space && tmpspace){
+			entityAt(x)->message(new ControlMessage(KEY_SPACE, true));
+		}
+	}
+
+	left = tmpleft;
+	right = tmpright;
+	space = tmpspace;
 }
