@@ -45,40 +45,4 @@ protected:
 	double currentTime;
 };
 
-class MovementSystem : public System{
-public:
-	MovementSystem();
-	void update(float delta);
-};
-
-class CollisionSystem : public System{
-public:
-	CollisionSystem();
-	bool inside(float pointx, float pointy, float boxx, float boxy, int w, int h);
-	void update(float delta);
-};
-
-class RenderSystem : public System{
-public:
-	RenderSystem();
-	void update(float delta);
-};
-
-class InputSystem : public System{
-public:
-	InputSystem();
-	void update(float delta);
-protected:
-	bool left;
-	bool right;
-	bool space;
-};
-
-class GarbageCollectSystem : public System{
-public:
-	GarbageCollectSystem();
-	void update(float delta);
-	std::vector<Entity*> removeList;
-};
-
 #endif
